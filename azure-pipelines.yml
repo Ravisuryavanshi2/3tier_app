@@ -4,46 +4,43 @@ trigger:
       - main
 
 variables:
-  acrName: hello3tieracr
-  acrLoginServer: hello3tieracr.azurecr.io
-  frontendImage: frontend
-  backendImage: backend
+  dockerHubImageFrontend: ravisuryabanshi/frontend
+  dockerHubImageBackend: ravisuryabanshi/backend
 
 stages:
 - stage: BuildAndPush
-  displayName: Build and Push to ACR
+  displayName: Build and Push to Docker Hub
   jobs:
   - job: DockerBuildPush
     pool:
-      name: Default
-      
+      name: Default  # Self-hosted agent pool
 
     steps:
     - task: DockerInstaller@0
+      displayName: Install Docker
 
     - task: Docker@2
-      displayName: 'Login to ACR'
+      displayName: 'Login to Docker Hub'
       inputs:
         command: login
-        containerRegistry: 'DockerHubServiceConnection'  # Create this in next step
+        containerRegistry: 'DockerHubServiceConnection'  # Use the exact service connection name
 
     - task: Docker@2
-      displayName: 'Build and push Frontend'
+      displayName: 'Build and Push Frontend'
       inputs:
-        repository: $(frontendImage)
+        command: buildAndPush
+        repository: $(dockerHubImageFrontend)
         dockerfile: frontend/Dockerfile
         containerRegistry: 'DockerHubServiceConnection'
-        command: buildAndPush
         tags: |
           latest
 
     - task: Docker@2
-      displayName: 'Build and push Backend'
+      displayName: 'Build and Push Backend'
       inputs:
-        repository: $(backendImage)
+        command: buildAndPush
+        repository: $(dockerHubImageBackend)
         dockerfile: backend/Dockerfile
         containerRegistry: 'DockerHubServiceConnection'
-        command: buildAndPush
         tags: |
           latest
-

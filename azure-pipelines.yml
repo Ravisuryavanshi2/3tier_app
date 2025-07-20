@@ -4,8 +4,8 @@ trigger:
       - main
 
 variables:
-  dockerHubImageFrontend: ravisuryabanshi/frontend
-  dockerHubImageBackend: ravisuryabanshi/backend
+  dockerHubImageFrontend: sachinthak/frontend
+  dockerHubImageBackend: sachinthak/backend
 
 stages:
 - stage: BuildAndPush

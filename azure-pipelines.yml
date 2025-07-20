@@ -16,8 +16,7 @@ stages:
   - job: DockerBuildPush
     pool:
       name: selfhostedagent
-      demands:
-        - agent.name -equals yvikrant4600454 
+      
 
     steps:
     - task: DockerInstaller@0

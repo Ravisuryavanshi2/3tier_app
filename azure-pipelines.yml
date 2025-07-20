@@ -25,14 +25,14 @@ stages:
       displayName: 'Login to ACR'
       inputs:
         command: login
-        containerRegistry: 'hello3tieracr-service-connection'  # Create this in next step
+        containerRegistry: 'DockerHubServiceConnection'  # Create this in next step
 
     - task: Docker@2
       displayName: 'Build and push Frontend'
       inputs:
         repository: $(frontendImage)
         dockerfile: frontend/Dockerfile
-        containerRegistry: 'hello3tieracr-service-connection'
+        containerRegistry: 'DockerHubServiceConnection'
         command: buildAndPush
         tags: |
           latest
@@ -42,7 +42,7 @@ stages:
       inputs:
         repository: $(backendImage)
         dockerfile: backend/Dockerfile
-        containerRegistry: 'hello3tieracr-service-connection'
+        containerRegistry: 'DockerHubServiceConnection'
         command: buildAndPush
         tags: |
           latest

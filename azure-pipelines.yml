@@ -15,7 +15,7 @@ stages:
   jobs:
   - job: DockerBuildPush
     pool:
-      name: hellomachine
+      name: Default
       
 
     steps:

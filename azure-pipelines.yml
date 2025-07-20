@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - main
+      - main1
 
 variables:
   dockerHubImageFrontend: sachinthak/frontend
